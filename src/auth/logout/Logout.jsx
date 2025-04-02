@@ -1,20 +1,27 @@
-import { useEffect } from 'react';
+import React, { useContext } from 'react';
 import { logout } from './logout.api';
-import { setUserId } from '../../utils/analytics'; 
+import { AuthContext } from '../../context/AuthContext';
+import { useNavigate } from 'react-router-dom';
 
-export const Logout = () => {
-  useEffect(() => {
-    (async () => {
-      try {
-        await logout();
-        setUserId(null);
-        alert('Logged out successfully');
-        window.location.href = '/login';
-      } catch (error) {
-        console.error('Logout failed', error);
-      }
-    })();
-  }, []);
+const Logout = () => {
+    const { logout: logoutUser } = useContext(AuthContext);
+    const navigate = useNavigate();
 
-  return <div>Logging out...</div>;
+    const handleLogout = async () => {
+        try {
+            await logout();
+            logoutUser();
+            navigate('/login');
+        } catch (error) {
+            console.error('Logout failed', error);
+        }
+    };
+
+    return (
+        <div>
+            <button onClick={handleLogout}>Logout</button>
+        </div>
+    );
 };
+
+export default Logout;

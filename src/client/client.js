@@ -1,8 +1,11 @@
 // src/client/client.js
+
 import axios from 'axios';
 
+const baseURL = import.meta.env.VITE_BASE_URL;
+
 const client = axios.create({
-    baseURL: 'https://walrus-app-3bwyd.ondigitalocean.app',
+    baseURL: baseURL, 
     withCredentials: true,
     headers: {
         'Content-Type': 'application/json',
