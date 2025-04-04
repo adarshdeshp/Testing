@@ -8,6 +8,11 @@
     ],
     "routes": [
       {
+        "src": "/",
+        "headers": { "Location": "/login" },
+        "status": 301
+      },
+      {
         "src": "/(.*)",
         "dest": "/dist/index.html"
       }
